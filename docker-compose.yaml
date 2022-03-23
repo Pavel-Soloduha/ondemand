@@ -1,0 +1,13 @@
+version: "3.5"
+
+services:
+  ood:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "3035:3035"
+      - "5556:5556"
+      - "8080:8080"
+
