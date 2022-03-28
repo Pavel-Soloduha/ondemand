@@ -36,6 +36,7 @@ RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -batch \
 
 RUN groupadd ood
 RUN useradd -d /home/ood -g ood -k /etc/skel -m ood
+RUN /opt/ood/ood-portal-generator/sbin/update_ood_portal
 
 EXPOSE 80
 EXPOSE 3035
