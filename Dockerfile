@@ -25,7 +25,6 @@ RUN dnf -y update && \
         ondemand-dex && \
     dnf clean all && rm -rf /var/cache/dnf/*
 
-COPY docker/launch-web      /opt/ood/start-web
 COPY docker/launch-ood      /opt/ood/launch
 # set servername
 COPY docker/ood_portal.yml /etc/ood/config/ood_portal.yml
