@@ -1,4 +1,4 @@
 #!/bin/bash
 
-runuser -u ondemand-dex /usr/sbin/ondemand-dex serve /etc/ood/dex/config.yaml &
+#runuser -u ondemand-dex /usr/sbin/ondemand-dex serve /etc/ood/dex/config.yaml &
 /usr/sbin/httpd -DFOREGROUND
