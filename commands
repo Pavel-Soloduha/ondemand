@@ -1,0 +1,48 @@
+sudo dnf check-update && sudo dnf upgrade -y
+sudo hostnamectl set-hostname ood-host
+sudo dnf install wget curl git vim nano -y
+wget https://github.com/sylabs/singularity/releases/download/v3.9.7/singularity-ce-3.9.7-1.el8.x86_64.rpm
+rpm -Uvh singularity-ce-3.9.7-1.el8.x86_64.rpm
+groupadd ood
+useradd -d /home/ood -g ood -k /etc/skel -m ood
+
+git clone https://github.com/Pavel-Soloduha/ondemand.git
+cd ondemand/
+
+
+
+sudo singularity build --sandbox ood.dex.local.sif sin.def
+sudo singularity exec --writable ood.dex.local.sif bash
+
+runuser -u ondemand-dex /usr/sbin/ondemand-dex serve /etc/ood/dex/config.yaml
+
+singularity instance start --writable ood.root.local.sif runuser -u ondemand-dex /usr/sbin/ondemand-dex serve /etc/ood/dex/config.yaml
+
+
+sudo singularity build --sandbox ood.httpd.local.sif sin.def
+sudo singularity exec --add-caps all --writable ood.httpd.local.sif bash
+sudo singularity exec --writable ood.local.sif /usr/sbin/httpd -DFOREGROUND
+sudo singularity instance start --writable ood.local.sif /usr/sbin/httpd -DFOREGROUND
+
+
+same secret in /etc/ood/dex between instances
+
+
+Error -- sudo: /etc/sudo.conf is owned by uid 1000, should be 0
+sudo: /usr/bin/sudo must be owned by uid 0 and have the setuid bit set
+
+
+singularity build --fakeroot --sandbox ood.httpd.local.sif sin.def
+
+fakeroot
+Error -- sudo: /etc/sudo.conf is owned by uid 1000, should be 0
+sudo: /usr/bin/sudo must be owned by uid 0 and have the setuid bit set
+
+Error -- sudo: effective uid is not 0, is /usr/bin/sudo on a file system with the 'nosuid' option set or an NFS file system without root privileges?
+
+singularity instance start [start options...] <container path> <instance name> [startscript args...]
+
+
+sudo singularity exec --add-caps all --allow-setuid --writable ood.httpd.local.sif bash
+
+sudo singularity exec --writable ood.dex.local.sif bash
