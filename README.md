@@ -23,3 +23,13 @@ vim /etc/ood/dex/ondemand.secret #insert secret from HTTPD
 vim /etc/ood/dex/config.yaml #insert secret from HTTPD
 runuser -u ondemand-dex /usr/sbin/ondemand-dex serve /etc/ood/dex/config.yaml
 ```
+
+
+## Other
+```
+cd ood.httpd.local.sif/home/ood/
+touch test.file
+/home/ps/Projects/ondemand/ood.httpd.local.sif/home/ood
+```
+
+![image](./screenshot.png)
